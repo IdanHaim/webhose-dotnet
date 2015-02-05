@@ -143,6 +143,5 @@ API. Consult https://webhose.io/documentation to find out about their structure.
 
 ### More things you should know
 
-Inside the project you have Samples folder that show some
-exapmles on using the webhose.
+Inside program you can find some Samples how to use the webhose
 
