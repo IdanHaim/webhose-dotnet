@@ -5,12 +5,12 @@ using System.Runtime.CompilerServices;
 // Change them to the values specific to your project.
 
 [assembly: AssemblyTitle ("webhose")]
-[assembly: AssemblyDescription ("")]
+[assembly: AssemblyDescription (".Net library for using the webhose.io API")]
 [assembly: AssemblyConfiguration ("")]
-[assembly: AssemblyCompany ("")]
-[assembly: AssemblyProduct ("")]
-[assembly: AssemblyCopyright ("shalom")]
-[assembly: AssemblyTrademark ("")]
+[assembly: AssemblyCompany ("Idan Haim Shalom")]
+[assembly: AssemblyProduct ("webhose-dotnet")]
+[assembly: AssemblyCopyright ("Copyright © Buzzila 2015")]
+[assembly: AssemblyTrademark ("webhose-dotnet")]
 [assembly: AssemblyCulture ("")]
 
 // The assembly version has the format "{Major}.{Minor}.{Build}.{Revision}".
