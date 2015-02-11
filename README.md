@@ -22,7 +22,8 @@ https://webhose.io/auth/signup, and then go into
 https://webhose.io/dashboard to see your token.
 
 ## Installing
-Choose one option
+Choose one from the options below:
+
 1.You can find webhose in the NuGet add packages and install it to your project under Webhose.dotnet.
   see more in here http://docs.nuget.org/consume/installing-nuget.
 
