@@ -36,9 +36,6 @@
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <ProjectReference Include="..\webhose\webhose.csproj">
-      <Project>{B1F31BDF-EA67-463D-AB64-B054FEAC4B39}</Project>
-      <Name>webhose</Name>
-    </ProjectReference>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>
