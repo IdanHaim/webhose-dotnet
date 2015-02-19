@@ -3,7 +3,7 @@ using Newtonsoft.Json.Linq;
 
 namespace webhose
 {
-    public class webhosePost
+    public class WebhosePost
     {
         public string url;
         public string title;
@@ -15,7 +15,7 @@ namespace webhose
         public string languages;
         public ThreadToken thread;
 
-        public webhosePost(JToken post)
+        public WebhosePost(JToken post)
         {
             url = (string)post["url"];
             title = (string)post["title"];
