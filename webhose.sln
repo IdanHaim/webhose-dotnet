@@ -5,7 +5,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "webhose", "webhose\webhose.
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{B1D56F9A-8077-4A1C-BDB5-CF19A4301FE0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "program", "program\program.csproj", "{4908B13F-AD81-4A4D-9FE9-10249DD0E561}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Samples", "samples\Samples.csproj", "{4908B13F-AD81-4A4D-9FE9-10249DD0E561}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7EBC5F78-7440-4131-B7C5-9401B844C4A3}"
 	ProjectSection(SolutionItems) = preProject
