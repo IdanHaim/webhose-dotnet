@@ -54,7 +54,7 @@ namespace webhose
         }
 
 
-        public void add_AllTerms(params string[] terms) 
+        public void addAllTerms(params string[] terms) 
         {
             if (allTerms == null) 
             {
@@ -63,7 +63,7 @@ namespace webhose
             allTerms.AddRange(terms);
         }
 
-        public void add_SomeTerms(params string[] terms)
+        public void addSomeTerms(params string[] terms)
         {
             if (someTerms == null)
             {
@@ -72,7 +72,7 @@ namespace webhose
             someTerms.AddRange(terms);
         }
 
-        public void add_SiteTypes(params SiteTypes[] terms)
+        public void addSiteTypes(params SiteTypes[] terms)
         {
             if (siteTypes == null)
             {
@@ -82,7 +82,7 @@ namespace webhose
         }
 
 
-        public void add_languages(params Languages[] terms)
+        public void addLanguages(params Languages[] terms)
         {
             if (languages == null)
             {
@@ -92,7 +92,7 @@ namespace webhose
         }
 
 
-        public void add_Sites(params string[] terms)
+        public void addSites(params string[] terms)
         {
             if (sites == null)
             {

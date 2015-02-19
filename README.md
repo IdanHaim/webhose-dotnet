@@ -125,8 +125,8 @@ WebhoseQuery objects implement the ``toString()`` method, which shows the result
 to use the webhoseQuery simply create new webhoseQuery put all the parameters that you want to look for and make the webhoseResponse
 ```C#
      WebhoseQuery clientQuery = new WebhoseQuery();
-     clientQuery.add_AllTerms ("skyrim","world");
-     clientQuery.add_languages (Languages.english, Languages.hebrew);
+     clientQuery.addAllTerms ("skyrim","world");
+     clientQuery.addLanguages (Languages.english, Languages.hebrew);
      clientQuery.Phrase = "level";
      
      //Getting response with Query
