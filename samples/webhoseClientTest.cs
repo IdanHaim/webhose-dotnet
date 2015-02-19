@@ -8,21 +8,21 @@ namespace program
 	{
 		public static void Main (string[] args)
 		{
-			webhoseRequest clientRequest = new webhoseRequest ("YOUR_API_KEY");
-			webhoseResponse response = clientRequest.getResponse ("skyrim");
+			WebhoseRequest clientRequest = new WebhoseRequest ("YOUR_API_KEY");
+			WebhoseResponse response = clientRequest.getResponse ("skyrim");
 
-			foreach (webhosePost post in response.posts) {
+			foreach (WebhosePost post in response.posts) {
 				Console.WriteLine (post);
 			}
 			Console.WriteLine ();
 
 			//exapmle for query
-			webhoseQuery clientQuery = new webhoseQuery();
-			clientQuery.add_AllTerms ("skyrim","world");
-			clientQuery.add_languages (Languages.english, Languages.hebrew);
+			WebhoseQuery clientQuery = new WebhoseQuery();
+			clientQuery.addAllTerms ("skyrim","world");
+			clientQuery.addLanguages (Languages.english, Languages.hebrew);
 			clientQuery.Phrase = "level";
 			Console.WriteLine ("responceWithQuery");
-			webhoseResponse responceWithQuery = clientRequest.getResponse (clientQuery);
+			WebhoseResponse responceWithQuery = clientRequest.getResponse (clientQuery);
 			Console.WriteLine (responceWithQuery);
 
 			Console.ReadKey ();
@@ -30,7 +30,7 @@ namespace program
 			//Just change NEW_API_KEY to your new API
 			//clientRequest.setAPI("NEW_API_KEY");
 
-			webhoseResponse moreFromResponse = response.getNext ();
+			WebhoseResponse moreFromResponse = response.getNext ();
 			Console.WriteLine (moreFromResponse.posts.Count);
 			Console.WriteLine (response.posts [5].title);
 
