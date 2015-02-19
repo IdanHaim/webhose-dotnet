@@ -4,10 +4,10 @@ A simple way to access the [webhose.io](https://webhose.io) API from your C# cod
 
 
 ```C#
-    webhoseRequest clientRequest = new webhoseRequest ("YOUR_API_KEY");
-			webhoseResponse response = clientRequest.getResponse ("skyrim");
+    WebhoseRequest clientRequest = new WebhoseRequest ("YOUR_API_KEY");
+			WebhoseResponse response = clientRequest.getResponse ("skyrim");
 
-			foreach (webhosePost post in response.posts) {
+			foreach (WebhosePost post in response.posts) {
 				Console.WriteLine (post);
 			}
 
@@ -38,7 +38,7 @@ To get started you need to set your access token.
 (Replace YOUR_API_KEY with your actual API key).
 
 ```C#
-    webhoseRequest clientRequest = new webhoseRequest ("YOUR_API_KEY");
+    WebhoseRequest clientRequest = new WebhoseRequest ("YOUR_API_KEY");
     //For you convenient if you want to use different API key to your request just do the following code
     clientRequest.setAPI("NEW_API_KEY");
 ```
@@ -64,7 +64,7 @@ If there are more than one page of results, use the `getMore()` method to
 fetch the next page.
 
 ```C#
-    webhoseResponse moreFromResponse = response.getNext ();
+    WebhoseResponse moreFromResponse = response.getNext ();
     Console.WriteLine (moreFromResponse.posts.Count);)
     // Will output 100 in this case, or 0 in case there are not any posts  
 ```
@@ -73,7 +73,7 @@ The ``getMore()`` method is also useful for fetching new results that were
 discovered since the last request.
 
 ```C#
-    webhoseRequest clientRequest = new webhoseRequest (YOUR_API_KEY);
+    WebhoseRequest clientRequest = new WebhoseRequest (YOUR_API_KEY);
     WebhoseResponse response = clientRequest.getResponse("minecraft");
     // Fetch new results every 5 minutes
    	while(true){
@@ -95,9 +95,9 @@ discovered since the last request.
 
 ## Full documentation
 
-### webhoseRequest class
+### WebhoseRequest class
 
-* webhoseRequest(token)
+* WebhoseRequest(token)
 
   * token - your API key
 
@@ -105,11 +105,11 @@ discovered since the last request.
 
   * query - the search query, either as a search string, or as a Query object
 
-### webhoseQuery class
+### WebhoseQuery class
 
-webhoseQuery objects correspond to the advanced search options that appear on https://webhose.io/use
+WebhoseQuery objects correspond to the advanced search options that appear on https://webhose.io/use
 
-webhoseQuery objects have the following members:
+WebhoseQuery objects have the following members:
 
 * ``allTerms`` - a list of strings, all of which must appear in the results
 * ``someTerms`` - a list of strings, some of which must appear in the results
@@ -121,16 +121,16 @@ webhoseQuery objects have the following members:
 * ``title`` - terms that must appear in the title
 * ``bodyText`` - term that must appear in the body text
 
-webhoseQuery objects implement the ``toString()`` method, which shows the resulting search string.
+WebhoseQuery objects implement the ``toString()`` method, which shows the resulting search string.
 to use the webhoseQuery simply create new webhoseQuery put all the parameters that you want to look for and make the webhoseResponse
 ```C#
-     webhoseQuery clientQuery = new webhoseQuery();
+     WebhoseQuery clientQuery = new WebhoseQuery();
      clientQuery.add_AllTerms ("skyrim","world");
      clientQuery.add_languages (Languages.english, Languages.hebrew);
      clientQuery.Phrase = "level";
      
      //Getting response with Query
-     webhoseResponse responceWithQuery = clientRequest.getResponse (clientQuery);
+     WebhoseResponse responceWithQuery = clientRequest.getResponse (clientQuery);
      	    	
 ```
 ### WebhoseResponse class
