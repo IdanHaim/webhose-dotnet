@@ -2,7 +2,7 @@
 using System.IO;
 
 namespace webhose
-{
+{	
     public class WebhoseRequest
     {
         private string token;
