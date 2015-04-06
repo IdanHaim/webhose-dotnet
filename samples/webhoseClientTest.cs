@@ -8,8 +8,8 @@ namespace program
 	{
 		public static void Main (string[] args)
 		{
-			WebhoseRequest clientRequest = new WebhoseRequest ("YOUR_API_KEY");
-			WebhoseResponse response = clientRequest.getResponse ("skyrim");
+			WebhoseRequest clientRequest = new WebhoseRequest ("");
+			WebhoseResponse response = clientRequest.getResponse ("aftonbladet");
 
 			foreach (WebhosePost post in response.posts) {
 				Console.WriteLine (post);
