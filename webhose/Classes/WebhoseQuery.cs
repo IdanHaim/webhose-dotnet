@@ -16,7 +16,7 @@ namespace webhose
         , swedish, turkish
     };
 
-    public enum SiteTypes { Discussions, News, Blogs };
+    public enum SiteTypes { discussions, news, blogs };
 
     public class WebhoseQuery
     {
@@ -116,47 +116,77 @@ namespace webhose
 		public override String ToString() {
 			List<string> terms = new List<string>();
 
-			addTerm(terms, allTerms, "AND", null);
-			addTerm(terms, someTerms, "OR", null);
-			if (phrase != null) {
-				terms.Add(@"""" + phrase + @"""");
-			}
+			addTerm(terms, allTerms, " AND ", null,"allTerms");
+            if (phrase != null){
+                terms.Add(" \"" + phrase + "\" ");
+            }
+			addTerm(terms, someTerms, " OR ", null,"someTerms");
+			
 			if (exclude != null) {
-				terms.Add("-(" + exclude + ")");
+				terms.Add(" -" + exclude + " ");
 			}
-			addTerm(terms, siteTypes, "OR", "siteType");
-			addTerm(terms, languages, "OR", "language");
-			addTerm(terms, sites, "OR", "site");
-			if (title != null) {
-				terms.Add("title:(" + title + ")");
-			}
-			if (bodyText != null) {
-				terms.Add("text:(" + bodyText+ ")");
-			}
-			return String.Join(" AND ",terms.ToArray());
+            if (title != null)
+            {
+                terms.Add(" thread.title:(" + title + ")");
+            }
+            if (bodyText != null)
+            {
+                terms.Add(" text:(" + bodyText + ")");
+            }
+            addTerm(terms, languages, "&", "language", "languages");
+            addTerm(terms, sites, "&", "site", "sites");
+            addTerm(terms, siteTypes, "&", "site_type","siteTypes");
+			
+			
+			
+			
+            
+            string query = String.Join("", terms.ToArray());
+            return query;
 		}
 
-		private void addTerm(List<String> terms, ICollection parts, String boolOp, String fieldName) {
+		private void addTerm(List<String> terms, ICollection parts, String boolOp, String fieldName,String whatTerm) {
 			if(parts == null) return;
 
 			StringBuilder sb = new StringBuilder();
-			sb.Append("(");
 			Boolean first = true;
 			foreach(Object part in parts) {
 				if(first) {
 					first = false;
+                    switch (whatTerm)
+                    {
+                        case "allTerms":
+                            sb.Append("(");
+                            break;
+                        case "someTerms":
+                            sb.Append(" (");
+                            break;
+                        case "sites":
+                            sb.Append("&");
+                            break;
+                        case "siteTypes":
+                            sb.Append("&");
+                            break;
+                        case "languages":
+                            sb.Append("&");
+                            break;
+                    }
 				} 
 				else
-				{ 
-					sb.Append(" ").Append(boolOp).Append(" ");
+				{
+                    sb.Append(boolOp);
 				}
 				if(fieldName != null) 
 				{
-					sb.Append(fieldName).Append(":");
+					sb.Append(fieldName).Append("=");
 				}
-				sb.Append(part);
+  
+                    sb.Append(part);    
 			}
-			sb.Append(")");
+            if (whatTerm.Equals("allTerms") || whatTerm.Equals("someTerms"))
+            {
+                sb.Append(")");
+            }
 			terms.Add(sb.ToString());
 		}
 	}

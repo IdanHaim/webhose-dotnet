@@ -3,6 +3,7 @@
 	using System.Text;
 	using Newtonsoft.Json;
 	using Newtonsoft.Json.Linq;
+    using System.IO;
 
 	namespace webhose
 	{ 
@@ -11,41 +12,44 @@
 	        readonly JObject jsonfile;
 	        public List<WebhosePost> posts;
 	        public int totalResults;
-		public string next;
-		public int left;
-		public int moreResultsAvailable;
-	        public WebhoseResponse(String query, String url , String token)
+		    public string next;
+		    public int left;
+		    public int moreResultsAvailable;
+	        public WebhoseResponse(string query, string url , string token)
 	        {
-	            string headers = "/search?token=" + token + "&q=" + query;
+                string headers = "/search?token=" + token + "&q=" + query;
 	            using (var webClient = new System.Net.WebClient())
-	            {	
-					webClient.Encoding = Encoding.UTF8;
+	            {
+                    webClient.Encoding = Encoding.UTF8;
 	                var json = webClient.DownloadString(url + headers);
-					jsonfile = (JObject)JsonConvert.DeserializeObject(json);
+                    jsonfile = JsonConvert.DeserializeObject<JObject>(json);
+                   
 	                
 	            }
 
 	            totalResults = (int)jsonfile["totalResults"];
-		    	next = url + jsonfile ["next"];
+		    next = url + jsonfile ["next"];
 	            left = (int)jsonfile["requestsLeft"];
-		    	moreResultsAvailable = (int)jsonfile["moreResultsAvailable"];
-		    	posts = retrievePosts(jsonfile);
+		    moreResultsAvailable = (int)jsonfile["moreResultsAvailable"];
+		    posts = retrievePosts(jsonfile);
 	        }
 
 	        public WebhoseResponse(String url) 
 	        {
 	            using (var webClient = new System.Net.WebClient())
 	            {
-					webClient.Encoding = Encoding.UTF8;
+			        webClient.Encoding = Encoding.UTF8;
                 	var json = webClient.DownloadString(url);
+                   
 	                jsonfile = (JObject)JsonConvert.DeserializeObject(json);
+                    string s = jsonfile["posts"][2].ToString();
 	            }
 
 	            totalResults = (int)jsonfile["totalResults"];
-				next = "https://webhose.io" + jsonfile["next"];
-		    	left = (int)jsonfile["requestsLeft"];
-		    	moreResultsAvailable = (int)jsonfile["moreResultsAvailable"];
-		    	posts = retrievePosts(jsonfile);
+	            next = "https://webhose.io" + jsonfile["next"];
+		        left = (int)jsonfile["requestsLeft"];
+		        moreResultsAvailable = (int)jsonfile["moreResultsAvailable"];
+		        posts = retrievePosts(jsonfile);
 	        }
 
 	        public WebhoseResponse getNext()
@@ -56,10 +60,10 @@
 	            }
 	            else
 	            {
-					if (moreResultsAvailable == 0) 
-					{
-						return null;
-					}
+                    if (moreResultsAvailable == 0) 
+                    {
+                        return null;
+                    }
 	                return new WebhoseResponse(next);
 	            }
 	        }

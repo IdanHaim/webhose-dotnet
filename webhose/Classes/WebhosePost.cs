@@ -1,6 +1,5 @@
 ﻿
 using Newtonsoft.Json.Linq;
-
 namespace webhose
 {
     public class WebhosePost

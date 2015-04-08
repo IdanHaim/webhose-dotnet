@@ -152,5 +152,5 @@ API. Consult https://webhose.io/documentation to find out about their structure.
 
 ### More things you should know
 
-Inside program you can find some Samples how to use the webhose
+Inside program you can find some Examples how to use the webhose
 
