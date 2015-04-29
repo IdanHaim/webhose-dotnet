@@ -42,7 +42,6 @@
                 	var json = webClient.DownloadString(url);
                    
 	                jsonfile = (JObject)JsonConvert.DeserializeObject(json);
-                    string s = jsonfile["posts"][2].ToString();
 	            }
 
 	            totalResults = (int)jsonfile["totalResults"];
