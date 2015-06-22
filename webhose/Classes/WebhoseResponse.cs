@@ -78,9 +78,10 @@
 
 	            responseString.Append("More Inforamtion:\n" +
 	                "total_results: " + totalResults + "\n" +
+					"moreResultsAvailable: " + moreResultsAvailable + "\n" +
 	                "next: " + next + "\n" +
-					"results_left: " + left + "\n" +
-					"moreResultsAvailable: " + moreResultsAvailable + "\n");
+					"requests_left: " + left + "\n");
+
 	            return responseString.ToString();
 	        }
 
