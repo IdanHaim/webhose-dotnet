@@ -120,13 +120,17 @@ WebhoseQuery objects have the following members:
 * ``site`` - one or more of site names, top level only (i.e., yahoo.com and not news.yahoo.com)
 * ``title`` - terms that must appear in the title
 * ``bodyText`` - term that must appear in the body text
+* ``siteSuffix`` - limit the results to a specific site suffix
+* ``author`` - return posts written by a specific author
+* ``countries`` - filtring by country  - give much less data - To get the full country code list, visit countrycode.org.
 
-WebhoseQuery objects implement the ``toString()`` method, which shows the resulting search string.
+
+WebhoseQuery objects implement the ``ToString()`` method, which shows the resulting search string.
 to use the webhoseQuery simply create new webhoseQuery put all the parameters that you want to look for and make the webhoseResponse
 ```C#
      WebhoseQuery clientQuery = new WebhoseQuery();
-     clientQuery.addAllTerms ("skyrim","world");
-     clientQuery.addLanguages (Languages.english, Languages.hebrew);
+     clientQuery.AddAllTerms ("skyrim","world");
+     clientQuery.AddLanguages (Languages.english, Languages.hebrew);
      clientQuery.Phrase = "level";
      
      //Getting response with Query
@@ -152,5 +156,6 @@ API. Consult https://webhose.io/documentation to find out about their structure.
 
 ### More things you should know
 
-Inside program you can find some Examples how to use the webhose
+Inside the program you can find some Examples how to use the webhose
+For more information about Webhose.io you can vist https://webhose.io/documentation
 
