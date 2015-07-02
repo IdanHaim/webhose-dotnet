@@ -29,11 +29,45 @@ namespace webhose
         private List<string> sites;
         private String title;
 		private String bodyText;
+		private List<string> siteSuffix;
+		private string site;
+		private string author;
+		private List<string> countries;
 
-        public string Phrase
+
+		public WebhoseQuery()
+		{
+			this.allTerms = null;
+			this.someTerms = null;
+			this.phrase = null;
+			this.exclude = null;
+			this.siteTypes = null;
+			this.languages = null;
+			this.sites = null;
+			this.title = null;
+			this.bodyText = null;
+			this.siteSuffix = null;
+			this.site = null;
+			this.author = null;
+			this.countries = null;
+		}
+
+		public string Site
+		{
+			get {return this.site;}
+			set {this.site = value;} 
+		}
+
+		public string Phrase
+		{
+			get {return this.phrase;}
+			set {this.phrase = value;} 
+		}
+
+        public string Author
         {
-            get {return this.phrase;}
-            set {this.phrase = value;} 
+			get {return this.author;}
+			set {this.author = value;} 
         }
 
         public string Exclude
@@ -47,14 +81,22 @@ namespace webhose
             set { this.title = value; }
         }
 
-        public string Body_Text
+        public string BodyText
         {
             get { return this.bodyText; }
             set { this.bodyText = value; }
         }
 
 
-        public void addAllTerms(params string[] terms) 
+		public void AddOrganization(params string[] terms)
+		{
+			for (int i = 0; i < terms.Length; i++) {
+				terms [i] = "organization:\"" + terms [i] + "\"";
+			}
+			AddAllTerms (terms);
+		}
+
+        public void AddAllTerms(params string[] terms) 
         {
             if (allTerms == null) 
             {
@@ -63,7 +105,7 @@ namespace webhose
             allTerms.AddRange(terms);
         }
 
-        public void addSomeTerms(params string[] terms)
+        public void AddSomeTerms(params string[] terms)
         {
             if (someTerms == null)
             {
@@ -72,7 +114,7 @@ namespace webhose
             someTerms.AddRange(terms);
         }
 
-        public void addSiteTypes(params SiteTypes[] terms)
+        public void AddSiteTypes(params SiteTypes[] terms)
         {
             if (siteTypes == null)
             {
@@ -82,7 +124,7 @@ namespace webhose
         }
 
 
-        public void addLanguages(params Languages[] terms)
+        public void AddLanguages(params Languages[] terms)
         {
             if (languages == null)
             {
@@ -92,7 +134,16 @@ namespace webhose
         }
 
 
-        public void addSites(params string[] terms)
+		public void AddSiteSuffix(params string[] suffix) {
+
+			if (siteSuffix == null) 
+			{
+				siteSuffix = new List<string>();
+			}
+			siteSuffix.AddRange (suffix);
+		}
+
+        public void AddSites(params string[] terms)
         {
             if (sites == null)
             {
@@ -100,27 +151,27 @@ namespace webhose
             }
             sites.AddRange(sites);
         }
-        public WebhoseQuery()
-        {
-            this.allTerms = null;
-            this.someTerms = null;
-            this.phrase = null;
-            this.exclude = null;
-            this.siteTypes = null;
-            this.languages = null;
-            this.sites = null;
-            this.title = null;
-            this.bodyText = null;
-        }
+        
+
+		public void AddCountries(params string[] terms)
+		{
+			if (countries == null)
+			{
+				countries = new List<string>();
+			}
+			countries.AddRange(terms);
+		}
+
+
 
 		public override String ToString() {
 			List<string> terms = new List<string>();
 
-			addTerm(terms, allTerms, " AND ", null,"allTerms");
+			AddTerm(terms, allTerms, " AND ", null,"allTerms");
             if (phrase != null){
                 terms.Add(" \"" + phrase + "\" ");
             }
-			addTerm(terms, someTerms, " OR ", null,"someTerms");
+			AddTerm(terms, someTerms, " OR ", null,"someTerms");
 			
 			if (exclude != null) {
 				terms.Add(" -" + exclude + " ");
@@ -133,19 +184,26 @@ namespace webhose
             {
                 terms.Add(" text:(" + bodyText + ")");
             }
-            addTerm(terms, languages, "&", "language", "languages");
-            addTerm(terms, sites, "&", "site", "sites");
-            addTerm(terms, siteTypes, "&", "site_type","siteTypes");
-			
-			
-			
-			
+            AddTerm(terms, languages, "&", "language", "languages");
+            AddTerm(terms, sites, "&", "site", "sites");
+            AddTerm(terms, siteTypes, "&", "site_type","siteTypes");
+			AddTerm (terms, siteSuffix, "&", "site_suffix", "siteSuffix");
+			AddTerm (terms, countries, "&", "thread.country", "countries");
+			if (site != null) 
+			{
+				terms.Add ("&site=" + site);
+			}
+			if (author != null) 
+			{
+				terms.Add ("&author=" + author);
+			}
+				
             
             string query = String.Join("", terms.ToArray());
             return query;
 		}
 
-		private void addTerm(List<String> terms, ICollection parts, String boolOp, String fieldName,String whatTerm) {
+		private void AddTerm(List<String> terms, ICollection parts, String boolOp, String fieldName,String whatTerm) {
 			if(parts == null) return;
 
 			StringBuilder sb = new StringBuilder();
@@ -170,6 +228,9 @@ namespace webhose
                         case "languages":
                             sb.Append("&");
                             break;
+						default:
+							sb.Append ("&");
+							break;
                     }
 				} 
 				else
