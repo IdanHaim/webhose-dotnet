@@ -13,7 +13,7 @@ namespace TestingWebhoseExample
 			Console.OutputEncoding = Encoding.UTF8;
 			Console.InputEncoding = Encoding.UTF8;
 
-			WebhoseRequest clientRequest = new WebhoseRequest ("YOUR_API");
+			WebhoseRequest clientRequest = new WebhoseRequest ("71abb65a-abd6-44d3-ad6e-11af8362defb");
 			WebhoseResponse response = clientRequest.getResponse ("aftonbladet");
 
 			foreach (WebhosePost post in response.posts) {
@@ -28,8 +28,9 @@ namespace TestingWebhoseExample
 			clientQuery.AddSomeTerms ("apple iphone","samsung","esny"); // words that may be in the search
 			clientQuery.AddLanguages (Languages.english);
 			clientQuery.AddSiteSuffix("com"); // Limit the results to a specific site suffix
-			clientQuery.AddSites ("macnn.com", "appleinsider.com");
-			clientQuery.AddOrganization ("apple", "MNM Media");
+			//clientQuery.AddSites ("macnn.com", "appleinsider.com");
+			//clientQuery.AddOrganization ("apple", "MNM Media");
+			clientQuery.ResponseSize = 50;
 			clientQuery.Author = "";
 			clientQuery.AddCountries ("US"); // filtring by country  - give much less data - To get the full country code list, visit countrycode.org.
 
