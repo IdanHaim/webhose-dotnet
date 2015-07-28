@@ -123,7 +123,7 @@ WebhoseQuery objects have the following members:
 * ``siteSuffix`` - limit the results to a specific site suffix
 * ``author`` - return posts written by a specific author
 * ``countries`` - filtring by country  - give much less data - To get the full country code list, visit countrycode.org.
-
+* ``responseSize`` - limit the total number of posts returned per request
 
 WebhoseQuery objects implement the ``ToString()`` method, which shows the resulting search string.
 to use the webhoseQuery simply create new webhoseQuery put all the parameters that you want to look for and make the webhoseResponse
@@ -132,6 +132,7 @@ to use the webhoseQuery simply create new webhoseQuery put all the parameters th
      clientQuery.AddAllTerms ("skyrim","world");
      clientQuery.AddLanguages (Languages.english, Languages.hebrew);
      clientQuery.Phrase = "level";
+     clientQuery.ResponseSize = 50;
      
      //Getting response with Query
      WebhoseResponse responceWithQuery = clientRequest.getResponse (clientQuery);
