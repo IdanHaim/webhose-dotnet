@@ -33,6 +33,7 @@ namespace webhose
 		private string site;
 		private string author;
 		private List<string> countries;
+		private int responseSize;
 
 
 		public WebhoseQuery()
@@ -50,6 +51,7 @@ namespace webhose
 			this.site = null;
 			this.author = null;
 			this.countries = null;
+			this.responseSize = 100;
 		}
 
 		public string Site
@@ -87,6 +89,11 @@ namespace webhose
             set { this.bodyText = value; }
         }
 
+		public int ResponseSize
+		{
+			get { return this.responseSize; }
+			set	{ this.responseSize = value; }
+		}
 
 		public void AddOrganization(params string[] terms)
 		{
@@ -196,6 +203,10 @@ namespace webhose
 			if (author != null) 
 			{
 				terms.Add ("&author=" + author);
+			}
+			if (responseSize != 100) 
+			{
+				terms.Add ("&size=" + responseSize);
 			}
 				
             
