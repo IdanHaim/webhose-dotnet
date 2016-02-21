@@ -1,11 +1,12 @@
-﻿	using System;
-	using System.Collections.Generic;
-	using System.Text;
-	using Newtonsoft.Json;
-	using Newtonsoft.Json.Linq;
-    using System.IO;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System.IO;
+using System.Net;
 
-	namespace webhose
+namespace webhose
 	{ 
 	    public class WebhoseResponse
 	    {
@@ -20,6 +21,7 @@
                 string headers = "/search?token=" + token + "&q=" + query;
 	            using (var webClient = new System.Net.WebClient())
 	            {
+	                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls11;
                     webClient.Encoding = Encoding.UTF8;
 	                var json = webClient.DownloadString(url + headers);
                     jsonfile = JsonConvert.DeserializeObject<JObject>(json);
