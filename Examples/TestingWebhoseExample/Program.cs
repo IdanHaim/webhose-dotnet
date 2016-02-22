@@ -9,11 +9,11 @@ namespace TestingWebhoseExample
 	{
 		public static void Main (string[] args)
 		{
-			//for better console output
-			Console.OutputEncoding = Encoding.UTF8;
-			Console.InputEncoding = Encoding.UTF8;
+//			//for better console output
+//			Console.OutputEncoding = Encoding.UTF8;
+//			Console.InputEncoding = Encoding.UTF8;
 
-			WebhoseRequest clientRequest = new WebhoseRequest ("71abb65a-abd6-44d3-ad6e-11af8362defb");
+			WebhoseRequest clientRequest = new WebhoseRequest ("YOUR_APIKEY");
 			WebhoseResponse response = clientRequest.getResponse ("aftonbladet");
 
 			foreach (WebhosePost post in response.posts) {
