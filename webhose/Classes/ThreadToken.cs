@@ -19,6 +19,7 @@ namespace webhose
         public string country;
         public string spamScore;
 		public string performanceScore;
+        public string domainRank;
 
 
         public ThreadToken(JToken thread)
@@ -37,7 +38,8 @@ namespace webhose
 				country = (string)thread ["country"];
 				spamScore = (string)thread ["spam_score"];
 				performanceScore = (string)thread ["performance_score"];
-			} catch (Exception) {
+                domainRank = (string)thread["domain_rank"];
+            } catch (Exception) {
 				throw new Exception ("thread token is not available");
 			}
 
@@ -57,7 +59,8 @@ namespace webhose
 			               "site_type:" + siteType + "\n" +
 			               "country: " + country + "\n" +
 			               "spam_score: " + spamScore + "\n" +
-			               "performance_score: " + performanceScore;
+			               "performance_score: " + performanceScore + "\n" +
+                           "domain_rank: " + domainRank;
 
 
 			return print;
