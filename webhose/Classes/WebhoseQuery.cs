@@ -20,56 +20,67 @@ namespace webhose
 
     public class WebhoseQuery
     {
-		private List<string> allTerms;
+        private List<string> allTerms;
         private List<string> someTerms;
         private String phrase;
         private String exclude;
-		private List<SiteTypes> siteTypes;
+        private List<SiteTypes> siteTypes;
         private List<Languages> languages;
         private List<string> sites;
         private String title;
-		private String bodyText;
-		private List<string> siteSuffix;
-		private string site;
-		private string author;
-		private List<string> countries;
-		private int responseSize;
+        private String bodyText;
+        private List<string> siteSuffix;
+        private string site;
+        private string author;
+        private List<string> countries;
+        private int responseSize;
+        private int performanceScore;
+        private bool? hasVideo;
 
 
-		public WebhoseQuery()
-		{
-			this.allTerms = null;
-			this.someTerms = null;
-			this.phrase = null;
-			this.exclude = null;
-			this.siteTypes = null;
-			this.languages = null;
-			this.sites = null;
-			this.title = null;
-			this.bodyText = null;
-			this.siteSuffix = null;
-			this.site = null;
-			this.author = null;
-			this.countries = null;
-			this.responseSize = 100;
-		}
+        public WebhoseQuery()
+        {
+            this.allTerms = null;
+            this.someTerms = null;
+            this.phrase = null;
+            this.exclude = null;
+            this.siteTypes = null;
+            this.languages = null;
+            this.sites = null;
+            this.title = null;
+            this.bodyText = null;
+            this.siteSuffix = null;
+            this.site = null;
+            this.author = null;
+            this.countries = null;
+            this.responseSize = 100;
+            this.performanceScore = 11;
+            this.hasVideo = false;
+        }
 
-		public string Site
-		{
-			get {return this.site;}
-			set {this.site = value;} 
-		}
+        public bool? HasVideo
+        {
+            get { return hasVideo; }
+            set { hasVideo = value; }
+        }
 
-		public string Phrase
-		{
-			get {return this.phrase;}
-			set {this.phrase = value;} 
-		}
+
+        public string Site
+        {
+            get { return this.site; }
+            set { this.site = value; }
+        }
+
+        public string Phrase
+        {
+            get { return this.phrase; }
+            set { this.phrase = value; }
+        }
 
         public string Author
         {
-			get {return this.author;}
-			set {this.author = value;} 
+            get { return this.author; }
+            set { this.author = value; }
         }
 
         public string Exclude
@@ -89,23 +100,31 @@ namespace webhose
             set { this.bodyText = value; }
         }
 
-		public int ResponseSize
-		{
-			get { return this.responseSize; }
-			set	{ this.responseSize = value; }
-		}
-
-		public void AddOrganization(params string[] terms)
-		{
-			for (int i = 0; i < terms.Length; i++) {
-				terms [i] = "organization:\"" + terms [i] + "\"";
-			}
-			AddAllTerms (terms);
-		}
-
-        public void AddAllTerms(params string[] terms) 
+        public int ResponseSize
         {
-            if (allTerms == null) 
+            get { return this.responseSize; }
+            set { this.responseSize = value; }
+        }
+
+        public int PerformanceScore
+        {
+            get { return performanceScore; }
+            set { performanceScore = value; }
+        }
+
+
+        public void AddOrganization(params string[] terms)
+        {
+            for (int i = 0; i < terms.Length; i++)
+            {
+                terms[i] = "organization:\"" + terms[i] + "\"";
+            }
+            AddAllTerms(terms);
+        }
+
+        public void AddAllTerms(params string[] terms)
+        {
+            if (allTerms == null)
             {
                 allTerms = new List<string>();
             }
@@ -141,14 +160,16 @@ namespace webhose
         }
 
 
-		public void AddSiteSuffix(params string[] suffix) {
 
-			if (siteSuffix == null) 
-			{
-				siteSuffix = new List<string>();
-			}
-			siteSuffix.AddRange (suffix);
-		}
+        public void AddSiteSuffix(params string[] suffix)
+        {
+
+            if (siteSuffix == null)
+            {
+                siteSuffix = new List<string>();
+            }
+            siteSuffix.AddRange(suffix);
+        }
 
         public void AddSites(params string[] terms)
         {
@@ -158,31 +179,34 @@ namespace webhose
             }
             sites.AddRange(sites);
         }
-        
-
-		public void AddCountries(params string[] terms)
-		{
-			if (countries == null)
-			{
-				countries = new List<string>();
-			}
-			countries.AddRange(terms);
-		}
 
 
+        public void AddCountries(params string[] terms)
+        {
+            if (countries == null)
+            {
+                countries = new List<string>();
+            }
+            countries.AddRange(terms);
+        }
 
-		public override String ToString() {
-			List<string> terms = new List<string>();
 
-			AddTerm(terms, allTerms, " AND ", null,"allTerms");
-            if (phrase != null){
+
+        public override String ToString()
+        {
+            List<string> terms = new List<string>();
+
+            AddTerm(terms, allTerms, " AND ", null, "allTerms");
+            if (phrase != null)
+            {
                 terms.Add(" \"" + phrase + "\" ");
             }
-			AddTerm(terms, someTerms, " OR ", null,"someTerms");
-			
-			if (exclude != null) {
-				terms.Add(" -" + exclude + " ");
-			}
+            AddTerm(terms, someTerms, " OR ", null, "someTerms");
+
+            if (exclude != null)
+            {
+                terms.Add(" -" + exclude + " ");
+            }
             if (title != null)
             {
                 terms.Add(" thread.title:(" + title + ")");
@@ -193,35 +217,47 @@ namespace webhose
             }
             AddTerm(terms, languages, "&", "language", "languages");
             AddTerm(terms, sites, "&", "site", "sites");
-            AddTerm(terms, siteTypes, "&", "site_type","siteTypes");
-			AddTerm (terms, siteSuffix, "&", "site_suffix", "siteSuffix");
-			AddTerm (terms, countries, "&", "thread.country", "countries");
-			if (site != null) 
-			{
-				terms.Add ("&site=" + site);
-			}
-			if (author != null) 
-			{
-				terms.Add ("&author=" + author);
-			}
-			if (responseSize != 100) 
-			{
-				terms.Add ("&size=" + responseSize);
-			}
-				
-            
+            AddTerm(terms, siteTypes, "&", "site_type", "siteTypes");
+            AddTerm(terms, siteSuffix, "&", "site_suffix", "siteSuffix");
+            AddTerm(terms, countries, "&", "thread.country", "countries");
+            if (site != null)
+            {
+                terms.Add("&site=" + site);
+            }
+            if (author != null)
+            {
+                terms.Add("&author=" + author);
+            }
+            if (responseSize != 100)
+            {
+                terms.Add("&size=" + responseSize);
+            }
+            if (performanceScore < 11)
+            {
+                terms.Add("&performance_score=" + performanceScore);
+            }
+            if (hasVideo != null)
+            {
+                terms.Add("&has_video=" + hasVideo.ToString().ToLower());
+            }
+
+
+
             string query = String.Join("", terms.ToArray());
             return query;
-		}
+        }
 
-		private void AddTerm(List<String> terms, ICollection parts, String boolOp, String fieldName,String whatTerm) {
-			if(parts == null) return;
+        private void AddTerm(List<String> terms, ICollection parts, String boolOp, String fieldName, String whatTerm)
+        {
+            if (parts == null) return;
 
-			StringBuilder sb = new StringBuilder();
-			Boolean first = true;
-			foreach(Object part in parts) {
-				if(first) {
-					first = false;
+            StringBuilder sb = new StringBuilder();
+            Boolean first = true;
+            foreach (Object part in parts)
+            {
+                if (first)
+                {
+                    first = false;
                     switch (whatTerm)
                     {
                         case "allTerms":
@@ -239,27 +275,27 @@ namespace webhose
                         case "languages":
                             sb.Append("&");
                             break;
-						default:
-							sb.Append ("&");
-							break;
+                        default:
+                            sb.Append("&");
+                            break;
                     }
-				} 
-				else
-				{
+                }
+                else
+                {
                     sb.Append(boolOp);
-				}
-				if(fieldName != null) 
-				{
-					sb.Append(fieldName).Append("=");
-				}
-  
-                    sb.Append(part);    
-			}
+                }
+                if (fieldName != null)
+                {
+                    sb.Append(fieldName).Append("=");
+                }
+
+                sb.Append(part);
+            }
             if (whatTerm.Equals("allTerms") || whatTerm.Equals("someTerms"))
             {
                 sb.Append(")");
             }
-			terms.Add(sb.ToString());
-		}
-	}
+            terms.Add(sb.ToString());
+        }
+    }
 }
