@@ -28,19 +28,35 @@ namespace webhose
 			crawled = (string)post ["crawled"];
 			ordInThread = (string)post ["ord_in_thread"];
 			languages = (string)post ["language"];
+
 			persons = new List<string> ();
-			foreach (var person in post["persons"]) {
-				persons.Add ((string)person);
-			}
-			locations = new List<string> ();
-			foreach (var location in post["locations"]) {
-				locations.Add ((string)location);
-			}
-			organizations = new List<string> ();
-			foreach (var organization in post["organizations"]) {
-				organizations.Add ((string)organization);
-			}
-			thread = new ThreadToken (post ["thread"]);
+		    if (post["persons"] != null)
+		    {
+		        foreach (var person in post["persons"])
+		        {
+		            persons.Add((string) person);
+		        }
+		    }
+
+		    locations = new List<string> ();
+		    if (post["locations"] != null)
+		    {
+		        foreach (var location in post["locations"])
+		        {
+		            locations.Add((string) location);
+		        }
+		    }
+
+		    organizations = new List<string> ();
+		    if (post["organizations"] != null)
+		    {
+		        foreach (var organization in post["organizations"])
+		        {
+		            organizations.Add((string) organization);
+		        }
+		    }
+
+		    thread = new ThreadToken (post ["thread"]);
 		}
 
         public override string ToString()
